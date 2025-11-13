@@ -8,6 +8,5 @@ build/
 *.iml
 *.ipr
 
-.springBeans
 ### Mac OS ###
 .DS_Store
