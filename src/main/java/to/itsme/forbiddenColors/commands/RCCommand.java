@@ -1,4 +1,4 @@
-package to.itsme.forbiddenColors.commands;
+package to.itsme.forbiddencolors.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -9,9 +9,9 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
-import to.itsme.forbiddenColors.enums.DefinedColor;
-import to.itsme.forbiddenColors.ForbiddenColorsPlugin;
-import to.itsme.forbiddenColors.enums.GameState;
+import to.itsme.forbiddencolors.enums.DefinedColor;
+import to.itsme.forbiddencolors.ForbiddenColorsPlugin;
+import to.itsme.forbiddencolors.enums.GameState;
 
 public class RCCommand {
     public static LiteralArgumentBuilder<CommandSourceStack> createCommand() {

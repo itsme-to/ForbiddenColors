@@ -1,4 +1,4 @@
-package to.itsme.forbiddenColors;
+package to.itsme.forbiddencolors;
 
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.key.Key;
@@ -7,8 +7,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import to.itsme.forbiddenColors.enums.DefinedColor;
-import to.itsme.forbiddenColors.enums.GameState;
+import to.itsme.forbiddencolors.enums.DefinedColor;
+import to.itsme.forbiddencolors.enums.GameState;
 
 import java.util.ArrayList;
 import java.util.List;

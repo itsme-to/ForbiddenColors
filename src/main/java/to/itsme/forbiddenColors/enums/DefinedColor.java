@@ -1,4 +1,4 @@
-package to.itsme.forbiddenColors.enums;
+package to.itsme.forbiddencolors.enums;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;

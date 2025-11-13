@@ -1,7 +1,7 @@
-package to.itsme.forbiddenColors;
+package to.itsme.forbiddencolors;
 
 import org.bukkit.scheduler.BukkitTask;
-import to.itsme.forbiddenColors.enums.GameState;
+import to.itsme.forbiddencolors.enums.GameState;
 
 import java.util.function.Consumer;
 

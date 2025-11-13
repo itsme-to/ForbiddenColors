@@ -1,6 +1,6 @@
 name: ForbiddenColors
 version: 1.0.0
-main: to.itsme.forbiddenColors.ForbiddenColorsPlugin
+main: to.itsme.forbiddencolors.ForbiddenColorsPlugin
 description: An example plugin
 author: Itsme.to
 website: https://itsme.to
