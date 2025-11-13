@@ -15,10 +15,15 @@ import to.itsme.forbiddencolors.ForbiddenColorsPlugin;
 import to.itsme.forbiddencolors.enums.GameState;
 
 public class PlayerMoveListener implements Listener {
+    private final ForbiddenColorsPlugin plugin;
+
+    public PlayerMoveListener(ForbiddenColorsPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (ForbiddenColorsPlugin.getGameController().gameState != GameState.RUNNING) return;
+        if (plugin.getGameController().gameState != GameState.RUNNING) return;
 
         if (event.getFrom().getBlockX() == event.getTo().getBlockX() &&
                 event.getFrom().getBlockY() == event.getTo().getBlockY() &&
@@ -42,7 +47,7 @@ public class PlayerMoveListener implements Listener {
         String colorHex = String.format("#%06X", mapColor.asRGB());
         TextColor textColor = TextColor.fromHexString(colorHex);
 
-        if (ForbiddenColorsPlugin.getGameController().isDisallowed(blockColor)) {
+        if (plugin.getGameController().isDisallowed(blockColor)) {
             location.getWorld().createExplosion(location, 4.0F);
         }
 
