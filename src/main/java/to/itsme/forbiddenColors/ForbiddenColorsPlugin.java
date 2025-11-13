@@ -6,13 +6,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import to.itsme.forbiddenColors.commands.RCCommand;
 import to.itsme.forbiddenColors.listeners.PlayerMoveListener;
 
-public class ForbiddenColorsPlugin extends JavaPlugin {
+public final class ForbiddenColorsPlugin extends JavaPlugin {
+    private static ForbiddenColorsPlugin instance;
     private static GameController GAME_CONTROLLER;
 
     @Override
     public void onEnable() {
+        instance = this;
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
-        GAME_CONTROLLER = new GameController(this);
+        GAME_CONTROLLER = new GameController();
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(RCCommand.createCommand().build());
         });
@@ -20,5 +22,13 @@ public class ForbiddenColorsPlugin extends JavaPlugin {
 
     public static GameController getGameController() {
         return GAME_CONTROLLER;
+    }
+
+    public static ForbiddenColorsPlugin getInstance() {
+        return instance;
+    }
+
+    public void startGameTask() {
+        this.getServer().getScheduler().runTaskTimer(this, new GameTick(), 0, 1);
     }
 }

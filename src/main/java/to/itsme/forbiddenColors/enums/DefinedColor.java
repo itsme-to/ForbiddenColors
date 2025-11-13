@@ -42,6 +42,10 @@ public enum DefinedColor {
         return Component.text(getName()).color(TextColor.color(getColor().getRGB()));
     }
 
+    public String toString() {
+        return name + " ("  + hex + ")";
+    }
+
     public static DefinedColor random() {
         DefinedColor[] values = DefinedColor.values();
         return values[new Random().nextInt(values.length)];
@@ -57,11 +61,6 @@ public enum DefinedColor {
 
         return available.get(new Random().nextInt(available.size()));
     }
-
-    public String toString() {
-        return name + " ("  + hex + ")";
-    }
-
 
     public static DefinedColor nearestTo(org.bukkit.Color color) {
         DefinedColor nearest = null;

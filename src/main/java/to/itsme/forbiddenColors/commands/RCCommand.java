@@ -81,6 +81,7 @@ public class RCCommand {
 
     private static int runStartLogic(CommandContext<CommandSourceStack> ctx) {
         ForbiddenColorsPlugin.getGameController().start();
+        ForbiddenColorsPlugin.getInstance().startGameTask();
         CommandSender sender = ctx.getSource().getSender();
         sender.sendMessage(Component.text("La partie a commencé"));
         return Command.SINGLE_SUCCESS;

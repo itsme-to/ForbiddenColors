@@ -5,30 +5,25 @@ import to.itsme.forbiddenColors.enums.GameState;
 
 import java.util.function.Consumer;
 
-public class GameTick implements Consumer<BukkitTask> {
-
-    private final GameController controller;
-
-    public GameTick(GameController controller) {
-        this.controller = controller;
-    }
-
+public final class GameTick implements Consumer<BukkitTask> {
     @Override
     public void accept(BukkitTask task) {
-        if (controller.gameState == GameState.STOPPED) {
+        GameController gameController = ForbiddenColorsPlugin.getGameController();
+
+        if (gameController.gameState == GameState.STOPPED) {
             task.cancel();
         }
 
-        if (controller.gameState == GameState.PAUSED) {
+        if (gameController.gameState == GameState.PAUSED) {
             return;
         }
-        controller.current++;
+        gameController.current++;
 
-        if (controller.current < controller.timer) {
-            controller.bossBar.progress(1 - (float) controller.current / controller.timer);
+        if (gameController.current < gameController.timer) {
+            gameController.bossBar.progress(1 - (float) gameController.current / gameController.timer);
             return;
         }
-        controller.current = 0;
-        controller.changeColors();
+        gameController.current = 0;
+        gameController.changeColors();
     }
 }

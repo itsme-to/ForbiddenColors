@@ -6,26 +6,23 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.title.Title;
-import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.Bukkit;
 import to.itsme.forbiddenColors.enums.DefinedColor;
 import to.itsme.forbiddenColors.enums.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameController {
-    List<DefinedColor> currentColors;
+public final class GameController {
+    private final List<DefinedColor> currentColors;
+    private DefinedColor requiredColor;
     public GameState gameState;
-    int timer;
-    int current;
-    int amount;
-    DefinedColor requiredColor;
-    ForbiddenColorsPlugin plugin;
-    BukkitScheduler scheduler;
+    public int timer;
+    public int current;
+    public int amount;
     public BossBar bossBar;
 
-    public GameController(ForbiddenColorsPlugin plugin) {
-        this.plugin = plugin;
+    public GameController() {
         currentColors = new ArrayList<>();
         currentColors.add(DefinedColor.random());
         gameState = GameState.PAUSED;
@@ -38,10 +35,8 @@ public class GameController {
         current = 0;
         requiredColor = null;
         bossBar = BossBar.bossBar(Component.text("Starting"), 0, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
-        plugin.getServer().showBossBar(bossBar);
+        Bukkit.getServer().showBossBar(bossBar);
         this.changeColors();
-        scheduler = this.plugin.getServer().getScheduler();
-        scheduler.runTaskTimer(plugin, new GameTick(this), 0, 1);
     }
 
     public void changeColors() {
@@ -61,13 +56,13 @@ public class GameController {
 
         if (timer > 20*20) {
             Title title = Title.title(colorsText, newColorText);
-            plugin.getServer().showTitle(title);
+            Bukkit.getServer().showTitle(title);
         } else {
             TextComponent actionbar = newColorText.append(Component.text(" : "));
             actionbar = actionbar.append(colorsText);
-            plugin.getServer().sendActionBar(actionbar);
+            Bukkit.getServer().sendActionBar(actionbar);
         }
-        plugin.getServer().playSound(Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MASTER, 1f, 1f));
+        Bukkit.getServer().playSound(Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MASTER, 1f, 1f));
 
         bossBar.name(text);
     }
@@ -95,7 +90,7 @@ public class GameController {
 
     public void stop() {
         gameState = GameState.STOPPED;
-        plugin.getServer().hideBossBar(bossBar);
+        Bukkit.getServer().hideBossBar(bossBar);
     }
 
     public void setTimer(int seconds) {
