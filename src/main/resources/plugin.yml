@@ -1,0 +1,7 @@
+name: ForbiddenColors
+version: 1.0.0
+main: to.itsme.forbiddenColors.ForbiddenColorsPlugin
+description: An example plugin
+author: Itsme.to
+website: https://itsme.to
+api-version: '1.21.8'
