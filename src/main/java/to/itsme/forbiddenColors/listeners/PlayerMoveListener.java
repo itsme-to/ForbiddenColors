@@ -44,13 +44,8 @@ public class PlayerMoveListener implements Listener {
         Color mapColor = currentBlock.getBlockData().getMapColor();
         DefinedColor blockColor = DefinedColor.nearestTo(mapColor);
 
-        String colorHex = String.format("#%06X", mapColor.asRGB());
-        TextColor textColor = TextColor.fromHexString(colorHex);
-
         if (plugin.getGameController().isDisallowed(blockColor)) {
             location.getWorld().createExplosion(location, 4.0F);
         }
-
-        player.sendActionBar(Component.text("Couleur actuelle : " + blockColor.getName()).color(textColor));
     }
 }
