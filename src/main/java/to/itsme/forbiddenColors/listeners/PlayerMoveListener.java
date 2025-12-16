@@ -1,29 +1,21 @@
 package to.itsme.forbiddencolors.listeners;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import to.itsme.forbiddencolors.GameController;
 import to.itsme.forbiddencolors.enums.DefinedColor;
-import to.itsme.forbiddencolors.ForbiddenColorsPlugin;
 import to.itsme.forbiddencolors.enums.GameState;
 
-public class PlayerMoveListener implements Listener {
-    private final ForbiddenColorsPlugin plugin;
-
-    public PlayerMoveListener(ForbiddenColorsPlugin plugin) {
-        this.plugin = plugin;
-    }
+public record PlayerMoveListener(GameController gameController) implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (plugin.getGameController().gameState != GameState.RUNNING) return;
+        if (gameController.gameState != GameState.RUNNING) return;
 
         if (event.getFrom().getBlockX() == event.getTo().getBlockX() &&
                 event.getFrom().getBlockY() == event.getTo().getBlockY() &&
@@ -31,20 +23,19 @@ public class PlayerMoveListener implements Listener {
             return;
         }
 
-        Player player = event.getPlayer();
         Location location = event.getTo();
 
         Block currentBlock = location.getBlock();
         // If the player is inside nothing get the block below
         if (currentBlock.getType() == Material.AIR) {
-            currentBlock = location.clone().add(0,-1, 0).getBlock();
+            currentBlock = location.clone().add(0, -1, 0).getBlock();
         }
         if (currentBlock.getType() == Material.AIR) return;
 
         Color mapColor = currentBlock.getBlockData().getMapColor();
         DefinedColor blockColor = DefinedColor.nearestTo(mapColor);
 
-        if (plugin.getGameController().isDisallowed(blockColor)) {
+        if (gameController.isDisallowed(blockColor)) {
             location.getWorld().createExplosion(location, 4.0F);
         }
     }

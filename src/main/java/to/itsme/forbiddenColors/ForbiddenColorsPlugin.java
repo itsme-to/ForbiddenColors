@@ -12,8 +12,8 @@ public final class ForbiddenColorsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(gameController), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(gameController), this);
         gameController = new GameController();
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(RCCommand.createCommand(this).build());

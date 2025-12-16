@@ -54,7 +54,7 @@ public class RCCommand {
 
     private static int runSetAmountLogic(CommandContext<CommandSourceStack> ctx, ForbiddenColorsPlugin plugin) {
         int number = IntegerArgumentType.getInteger(ctx, "number");
-        plugin.getGameController().setAmount(number);
+        plugin.getGameController().setColorAmount(number);
         CommandSender sender = ctx.getSource().getSender();
         sender.sendMessage(Component.text("Le nombre de couleur mortelle a été changé à " + number));
         return Command.SINGLE_SUCCESS;
@@ -81,9 +81,15 @@ public class RCCommand {
     }
 
     private static int runStartLogic(CommandContext<CommandSourceStack> ctx, ForbiddenColorsPlugin plugin) {
-        plugin.getGameController().start();
-        plugin.getServer().getScheduler().runTaskTimer(plugin, new GameTick(plugin), 0, 1);
         CommandSender sender = ctx.getSource().getSender();
+
+        if (plugin.getGameController().gameState != GameState.STOPPED) {
+            sender.sendMessage(Component.text("La partie doit être stoppée avant de pouvoir recommencer."));
+            return Command.SINGLE_SUCCESS;
+        }
+
+        plugin.getGameController().start();
+        plugin.getServer().getScheduler().runTaskTimer(plugin, new GameTick(plugin.getGameController()), 0, 1);
         sender.sendMessage(Component.text("La partie a commencé"));
         return Command.SINGLE_SUCCESS;
     }
@@ -96,11 +102,12 @@ public class RCCommand {
     }
 
     private static int runPauseLogic(CommandContext<CommandSourceStack> ctx, ForbiddenColorsPlugin plugin) {
-        plugin.getGameController().pause();
         CommandSender sender = ctx.getSource().getSender();
         if (plugin.getGameController().gameState == GameState.PAUSED) {
+            plugin.getGameController().pause();
             sender.sendMessage(Component.text("La partie a été mise sur pause"));
         } else {
+            plugin.getGameController().resume();
             sender.sendMessage(Component.text("La partie a été reprise"));
         }
 

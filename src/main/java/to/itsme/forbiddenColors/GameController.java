@@ -17,9 +17,9 @@ public final class GameController {
     private final List<DefinedColor> currentColors;
     private DefinedColor requiredColor;
     public GameState gameState;
-    public int timer;
-    public int current;
-    public int amount;
+    private int timer;
+    private int currentTimer;
+    private int colorAmount;
     public BossBar bossBar;
 
     public GameController() {
@@ -31,8 +31,8 @@ public final class GameController {
     public void start() {
         gameState = GameState.RUNNING;
         timer = 20*20;
-        amount = 1;
-        current = 0;
+        colorAmount = 1;
+        currentTimer = 0;
         requiredColor = null;
         bossBar = BossBar.bossBar(Component.text("Starting"), 0, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         Bukkit.getServer().showBossBar(bossBar);
@@ -83,9 +83,11 @@ public final class GameController {
     }
 
     public void pause() {
-        if (gameState == GameState.PAUSED) {
-            gameState = GameState.RUNNING;
-        } else gameState = GameState.PAUSED;
+        gameState = GameState.PAUSED;
+    }
+
+    public void resume() {
+        gameState = GameState.RUNNING;
     }
 
     public void stop() {
@@ -97,9 +99,23 @@ public final class GameController {
         this.timer = seconds * 20;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public int getTimer() { return this.timer; }
+
+    public void increaseCurrentTimer() {
+        this.currentTimer++;
     }
+
+    public void resetCurrentTimer() {
+        this.currentTimer = 0;
+    }
+
+    public int getCurrentTimer() { return this.currentTimer; }
+
+    public void setColorAmount(int amount) {
+        this.colorAmount = amount;
+    }
+
+    public int getColorAmount() { return this.colorAmount; }
 
     public void setRequiredColor(DefinedColor requiredColor) {
         this.requiredColor = requiredColor;
@@ -115,7 +131,7 @@ public final class GameController {
             currentColors.add(requiredColor);
         }
 
-        while (currentColors.size() < amount) {
+        while (currentColors.size() < colorAmount) {
             DefinedColor color = DefinedColor.randomExcluding(currentColors);
             if (color == null) return;
             currentColors.add(color);
