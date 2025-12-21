@@ -4,6 +4,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import to.itsme.forbiddencolors.commands.RCCommand;
+import to.itsme.forbiddencolors.game.GameController;
 import to.itsme.forbiddencolors.listeners.PlayerJoinListener;
 import to.itsme.forbiddencolors.listeners.PlayerMoveListener;
 

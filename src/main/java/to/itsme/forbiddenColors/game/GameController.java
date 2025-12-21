@@ -1,4 +1,4 @@
-package to.itsme.forbiddencolors;
+package to.itsme.forbiddencolors.game;
 
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.key.Key;
@@ -7,25 +7,22 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import to.itsme.forbiddencolors.enums.DefinedColor;
-import to.itsme.forbiddencolors.enums.GameState;
+import to.itsme.forbiddencolors.DefinedColor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class GameController {
-    private final List<DefinedColor> currentColors;
+    private final List<DefinedColor> currentColors = new ArrayList<>();
     private DefinedColor requiredColor;
-    public GameState gameState;
+    public GameState gameState = GameState.PAUSED;
     private int timer;
     private int currentTimer;
     private int colorAmount;
     public BossBar bossBar;
 
     public GameController() {
-        currentColors = new ArrayList<>();
         currentColors.add(DefinedColor.random());
-        gameState = GameState.PAUSED;
     }
 
     public void start() {
@@ -136,10 +133,9 @@ public final class GameController {
             if (color == null) return;
             currentColors.add(color);
         }
-
     }
 
-    public Boolean isDisallowed(DefinedColor color) {
+    public boolean isDisallowed(DefinedColor color) {
         if (gameState == GameState.PAUSED) {
             return false;
         }

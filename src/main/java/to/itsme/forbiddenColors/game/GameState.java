@@ -1,4 +1,4 @@
-package to.itsme.forbiddencolors.enums;
+package to.itsme.forbiddencolors.game;
 
 public enum GameState {
     RUNNING,

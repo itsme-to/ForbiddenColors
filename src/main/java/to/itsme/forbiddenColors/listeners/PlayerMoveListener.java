@@ -7,9 +7,9 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import to.itsme.forbiddencolors.GameController;
-import to.itsme.forbiddencolors.enums.DefinedColor;
-import to.itsme.forbiddencolors.enums.GameState;
+import to.itsme.forbiddencolors.game.GameController;
+import to.itsme.forbiddencolors.DefinedColor;
+import to.itsme.forbiddencolors.game.GameState;
 
 public record PlayerMoveListener(GameController gameController) implements Listener {
 

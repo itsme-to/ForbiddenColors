@@ -1,4 +1,4 @@
-package to.itsme.forbiddencolors.enums;
+package to.itsme.forbiddencolors;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextColor;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public enum DefinedColor {
     WHITE("Blanc", "#FFFFFF"),
@@ -23,6 +24,8 @@ public enum DefinedColor {
     private final String name;
     private final String hex;
     private final Color color;
+
+    private static final Random RANDOM = ThreadLocalRandom.current();
 
     DefinedColor(String name, String hex) {
         this.name = name;
@@ -48,7 +51,7 @@ public enum DefinedColor {
 
     public static DefinedColor random() {
         DefinedColor[] values = DefinedColor.values();
-        return values[new Random().nextInt(values.length)];
+        return values[RANDOM.nextInt(values.length)];
     }
 
     public static DefinedColor randomExcluding(Collection<DefinedColor> exclusions) {
@@ -59,7 +62,7 @@ public enum DefinedColor {
             return null;
         }
 
-        return available.get(new Random().nextInt(available.size()));
+        return available.get(RANDOM.nextInt(available.size()));
     }
 
     public static DefinedColor nearestTo(org.bukkit.Color color) {

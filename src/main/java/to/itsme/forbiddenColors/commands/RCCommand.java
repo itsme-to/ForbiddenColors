@@ -9,10 +9,10 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
-import to.itsme.forbiddencolors.GameTick;
-import to.itsme.forbiddencolors.enums.DefinedColor;
+import to.itsme.forbiddencolors.game.GameTick;
+import to.itsme.forbiddencolors.DefinedColor;
 import to.itsme.forbiddencolors.ForbiddenColorsPlugin;
-import to.itsme.forbiddencolors.enums.GameState;
+import to.itsme.forbiddencolors.game.GameState;
 
 public class RCCommand {
     public static LiteralArgumentBuilder<CommandSourceStack> createCommand(ForbiddenColorsPlugin plugin) {
